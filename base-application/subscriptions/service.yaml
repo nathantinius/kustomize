@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: subscriptions
+  labels:
+    app.kubernetes.io/name: subscriptions
+    app.kubernetes.io/instance: subscriptions
+    app.kubernetes.io/component: service
+    app.kubernetes.io/created-by: nathan_tinius
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: TARGET_PORT
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: subscriptions
+    app.kubernetes.io/instance: subscriptions
+    app.kubernetes.io/component: service

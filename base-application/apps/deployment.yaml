@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apps
+  labels:
+    app.kubernetes.io/created-by: nathan_tinius
+    app.kubernetes.io/type: app
+  annotations:
+    secrets.doppler.com/reload: 'true'
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: apps
+      app.kubernetes.io/instance: apps
+      app.kubernetes.io/component: service
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: apps
+        app.kubernetes.io/instance: apps
+        app.kubernetes.io/component: service
+        app.kubernetes.io/created-by: nathan_tinius
+        fargate: 'yes'
+    spec:
+      imagePullSecrets:
+        - name: ac-aws-docker-key
+      serviceAccountName: apps
+      containers:
+        - name: apps
+          envFrom:
+            - configMapRef:
+                name: apps
+            - secretRef:
+                name: doppler-production-secret
+          image: "ACCOUNT_ID.dkr.ecr.REGION.amazonaws.com/TAG:Prod-v2.0.137"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: PORT
+              protocol: TCP
+          resources:
+            limits:
+              memory: 5G
+            requests:
+              cpu: '2'
+              memory: 5G

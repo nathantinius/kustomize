@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ecos
+data:
+  NEXT_PUBLIC_APPS_API: http://apps.apps.svc:80
+  NEXT_PUBLIC_USERS_API: http://users.users.svc:80

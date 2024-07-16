@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ui
+  labels:
+    app.kubernetes.io/name: ui
+    app.kubernetes.io/instance: ui
+    app.kubernetes.io/component: service
+    app.kubernetes.io/created-by: nathan_tinius
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: TARGET_PORT
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: ui
+    app.kubernetes.io/instance: ui
+    app.kubernetes.io/component: service

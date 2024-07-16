@@ -1,0 +1,6 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ecos
+  labels:
+    app.kubernetes.io/created-by: nathan_tinius
